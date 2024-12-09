@@ -20,3 +20,37 @@ class Solution {
         }
     }
 }
+
+//one more method
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>>permutations=new ArrayList<>();
+        backtrack(nums,0,permutations); //recursion start
+        return permutations;
+    }
+    private void backtrack(int[] nums,int start, List<List<Integer>>permutations){
+        if(start==nums.length){
+            //If we've considered all elements, add the current permutation
+            List<Integer>permutation=new ArrayList<>();
+            for(int num:nums){
+                permutation.add(num);
+            }
+            permutations.add(permutation);
+            return;
+        }
+        // Recursive case: Try each possibility by swapping elements
+        for (int i = start; i < nums.length; i++) {
+            // Swap the current element with the start element
+            swap(nums, start, i);
+            // Recurse with the next element fixed
+            backtrack(nums, start + 1, permutations);
+            // Backtrack: Undo the swap
+            swap(nums, start, i);
+        }
+    }
+    private void swap(int[]nums,int i,int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
+}
